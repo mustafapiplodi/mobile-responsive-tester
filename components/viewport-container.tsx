@@ -64,7 +64,12 @@ export function ViewportContainer({
         const scale = Math.min(maxWidth / width, maxHeight / height, 1)
 
         return (
-          <Card key={viewport.id} className="overflow-hidden">
+          <Card
+            key={viewport.id}
+            className="overflow-hidden"
+            data-viewport-id={viewport.id}
+            data-device-name={device.name}
+          >
             <CardHeader className="pb-3">
               <div className="flex items-start justify-between gap-2">
                 <div className="flex-1 min-w-0">

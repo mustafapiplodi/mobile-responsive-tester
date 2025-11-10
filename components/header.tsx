@@ -2,6 +2,7 @@
 
 import { Smartphone } from "lucide-react"
 import { ThemeToggle } from "./theme-toggle"
+import { HelpDialog } from "./help-dialog"
 
 export function Header() {
   return (
@@ -20,6 +21,7 @@ export function Header() {
         </div>
 
         <div className="flex items-center gap-2">
+          <HelpDialog />
           <ThemeToggle />
         </div>
       </div>
