@@ -1,0 +1,410 @@
+[
+  {
+    "id": "iphone-15-pro-max",
+    "name": "iPhone 15 Pro Max",
+    "width": 430,
+    "height": 932,
+    "dpr": 3,
+    "category": "phone"
+  },
+  {
+    "id": "iphone-15-pro",
+    "name": "iPhone 15 Pro",
+    "width": 393,
+    "height": 852,
+    "dpr": 3,
+    "category": "phone"
+  },
+  {
+    "id": "iphone-15",
+    "name": "iPhone 15",
+    "width": 393,
+    "height": 852,
+    "dpr": 3,
+    "category": "phone"
+  },
+  {
+    "id": "iphone-14-pro-max",
+    "name": "iPhone 14 Pro Max",
+    "width": 430,
+    "height": 932,
+    "dpr": 3,
+    "category": "phone"
+  },
+  {
+    "id": "iphone-14-pro",
+    "name": "iPhone 14 Pro",
+    "width": 393,
+    "height": 852,
+    "dpr": 3,
+    "category": "phone"
+  },
+  {
+    "id": "iphone-14",
+    "name": "iPhone 14",
+    "width": 390,
+    "height": 844,
+    "dpr": 3,
+    "category": "phone"
+  },
+  {
+    "id": "iphone-13-pro-max",
+    "name": "iPhone 13 Pro Max",
+    "width": 428,
+    "height": 926,
+    "dpr": 3,
+    "category": "phone"
+  },
+  {
+    "id": "iphone-13-pro",
+    "name": "iPhone 13 Pro",
+    "width": 390,
+    "height": 844,
+    "dpr": 3,
+    "category": "phone"
+  },
+  {
+    "id": "iphone-13",
+    "name": "iPhone 13",
+    "width": 390,
+    "height": 844,
+    "dpr": 3,
+    "category": "phone"
+  },
+  {
+    "id": "iphone-13-mini",
+    "name": "iPhone 13 Mini",
+    "width": 375,
+    "height": 812,
+    "dpr": 3,
+    "category": "phone"
+  },
+  {
+    "id": "iphone-se",
+    "name": "iPhone SE",
+    "width": 375,
+    "height": 667,
+    "dpr": 2,
+    "category": "phone"
+  },
+  {
+    "id": "samsung-galaxy-s24-ultra",
+    "name": "Samsung Galaxy S24 Ultra",
+    "width": 412,
+    "height": 915,
+    "dpr": 3.5,
+    "category": "phone"
+  },
+  {
+    "id": "samsung-galaxy-s24",
+    "name": "Samsung Galaxy S24",
+    "width": 360,
+    "height": 780,
+    "dpr": 3,
+    "category": "phone"
+  },
+  {
+    "id": "samsung-galaxy-s23",
+    "name": "Samsung Galaxy S23",
+    "width": 360,
+    "height": 780,
+    "dpr": 3,
+    "category": "phone"
+  },
+  {
+    "id": "samsung-galaxy-s22",
+    "name": "Samsung Galaxy S22",
+    "width": 360,
+    "height": 780,
+    "dpr": 3,
+    "category": "phone"
+  },
+  {
+    "id": "samsung-galaxy-s21",
+    "name": "Samsung Galaxy S21",
+    "width": 360,
+    "height": 800,
+    "dpr": 3,
+    "category": "phone"
+  },
+  {
+    "id": "samsung-galaxy-z-fold5",
+    "name": "Samsung Galaxy Z Fold5",
+    "width": 344,
+    "height": 882,
+    "dpr": 3,
+    "category": "phone"
+  },
+  {
+    "id": "samsung-galaxy-z-flip5",
+    "name": "Samsung Galaxy Z Flip5",
+    "width": 412,
+    "height": 883,
+    "dpr": 2.625,
+    "category": "phone"
+  },
+  {
+    "id": "google-pixel-8-pro",
+    "name": "Google Pixel 8 Pro",
+    "width": 412,
+    "height": 915,
+    "dpr": 3,
+    "category": "phone"
+  },
+  {
+    "id": "google-pixel-8",
+    "name": "Google Pixel 8",
+    "width": 412,
+    "height": 915,
+    "dpr": 2.625,
+    "category": "phone"
+  },
+  {
+    "id": "google-pixel-7-pro",
+    "name": "Google Pixel 7 Pro",
+    "width": 412,
+    "height": 892,
+    "dpr": 3.5,
+    "category": "phone"
+  },
+  {
+    "id": "google-pixel-7",
+    "name": "Google Pixel 7",
+    "width": 412,
+    "height": 915,
+    "dpr": 2.625,
+    "category": "phone"
+  },
+  {
+    "id": "google-pixel-6",
+    "name": "Google Pixel 6",
+    "width": 412,
+    "height": 915,
+    "dpr": 2.625,
+    "category": "phone"
+  },
+  {
+    "id": "oneplus-12",
+    "name": "OnePlus 12",
+    "width": 450,
+    "height": 1008,
+    "dpr": 3,
+    "category": "phone"
+  },
+  {
+    "id": "oneplus-11",
+    "name": "OnePlus 11",
+    "width": 412,
+    "height": 919,
+    "dpr": 3,
+    "category": "phone"
+  },
+  {
+    "id": "xiaomi-14-pro",
+    "name": "Xiaomi 14 Pro",
+    "width": 412,
+    "height": 915,
+    "dpr": 3,
+    "category": "phone"
+  },
+  {
+    "id": "xiaomi-13-pro",
+    "name": "Xiaomi 13 Pro",
+    "width": 412,
+    "height": 915,
+    "dpr": 3,
+    "category": "phone"
+  },
+  {
+    "id": "ipad-pro-13",
+    "name": "iPad Pro 13\"",
+    "width": 1024,
+    "height": 1366,
+    "dpr": 2,
+    "category": "tablet"
+  },
+  {
+    "id": "ipad-pro-11",
+    "name": "iPad Pro 11\"",
+    "width": 834,
+    "height": 1194,
+    "dpr": 2,
+    "category": "tablet"
+  },
+  {
+    "id": "ipad-air",
+    "name": "iPad Air",
+    "width": 820,
+    "height": 1180,
+    "dpr": 2,
+    "category": "tablet"
+  },
+  {
+    "id": "ipad-mini",
+    "name": "iPad Mini",
+    "width": 744,
+    "height": 1133,
+    "dpr": 2,
+    "category": "tablet"
+  },
+  {
+    "id": "ipad-10",
+    "name": "iPad 10th Gen",
+    "width": 810,
+    "height": 1080,
+    "dpr": 2,
+    "category": "tablet"
+  },
+  {
+    "id": "samsung-galaxy-tab-s9",
+    "name": "Samsung Galaxy Tab S9",
+    "width": 712,
+    "height": 1138,
+    "dpr": 2.5,
+    "category": "tablet"
+  },
+  {
+    "id": "samsung-galaxy-tab-s8",
+    "name": "Samsung Galaxy Tab S8",
+    "width": 712,
+    "height": 1138,
+    "dpr": 2.5,
+    "category": "tablet"
+  },
+  {
+    "id": "surface-pro-9",
+    "name": "Microsoft Surface Pro 9",
+    "width": 912,
+    "height": 1368,
+    "dpr": 2,
+    "category": "tablet"
+  },
+  {
+    "id": "surface-go",
+    "name": "Microsoft Surface Go",
+    "width": 540,
+    "height": 720,
+    "dpr": 1.5,
+    "category": "tablet"
+  },
+  {
+    "id": "kindle-fire-hd",
+    "name": "Kindle Fire HD",
+    "width": 800,
+    "height": 1280,
+    "dpr": 1.5,
+    "category": "tablet"
+  },
+  {
+    "id": "desktop-1920",
+    "name": "Desktop 1920x1080",
+    "width": 1920,
+    "height": 1080,
+    "dpr": 1,
+    "category": "desktop"
+  },
+  {
+    "id": "desktop-1440",
+    "name": "Desktop 2560x1440",
+    "width": 2560,
+    "height": 1440,
+    "dpr": 1,
+    "category": "desktop"
+  },
+  {
+    "id": "desktop-4k",
+    "name": "Desktop 4K",
+    "width": 3840,
+    "height": 2160,
+    "dpr": 2,
+    "category": "desktop"
+  },
+  {
+    "id": "laptop-1366",
+    "name": "Laptop 1366x768",
+    "width": 1366,
+    "height": 768,
+    "dpr": 1,
+    "category": "desktop"
+  },
+  {
+    "id": "laptop-1536",
+    "name": "Laptop 1536x864",
+    "width": 1536,
+    "height": 864,
+    "dpr": 1.25,
+    "category": "desktop"
+  },
+  {
+    "id": "laptop-1600",
+    "name": "Laptop 1600x900",
+    "width": 1600,
+    "height": 900,
+    "dpr": 1,
+    "category": "desktop"
+  },
+  {
+    "id": "macbook-air-13",
+    "name": "MacBook Air 13\"",
+    "width": 1440,
+    "height": 900,
+    "dpr": 2,
+    "category": "desktop"
+  },
+  {
+    "id": "macbook-pro-14",
+    "name": "MacBook Pro 14\"",
+    "width": 1512,
+    "height": 982,
+    "dpr": 2,
+    "category": "desktop"
+  },
+  {
+    "id": "macbook-pro-16",
+    "name": "MacBook Pro 16\"",
+    "width": 1728,
+    "height": 1117,
+    "dpr": 2,
+    "category": "desktop"
+  },
+  {
+    "id": "imac-24",
+    "name": "iMac 24\"",
+    "width": 2240,
+    "height": 1260,
+    "dpr": 2,
+    "category": "desktop"
+  },
+  {
+    "id": "dell-xps-13",
+    "name": "Dell XPS 13",
+    "width": 1920,
+    "height": 1200,
+    "dpr": 2,
+    "category": "desktop"
+  },
+  {
+    "id": "dell-xps-15",
+    "name": "Dell XPS 15",
+    "width": 1920,
+    "height": 1200,
+    "dpr": 2,
+    "category": "desktop"
+  },
+  {
+    "id": "ultrawide-2560",
+    "name": "Ultrawide 2560x1080",
+    "width": 2560,
+    "height": 1080,
+    "dpr": 1,
+    "category": "desktop"
+  },
+  {
+    "id": "ultrawide-3440",
+    "name": "Ultrawide 3440x1440",
+    "width": 3440,
+    "height": 1440,
+    "dpr": 1,
+    "category": "desktop"
+  }
+]
