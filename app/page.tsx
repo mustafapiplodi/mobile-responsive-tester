@@ -5,18 +5,12 @@ import { Header } from "@/components/header"
 import { URLInput } from "@/components/url-input"
 import { EnhancedDeviceSelector } from "@/components/enhanced-device-selector"
 import { EnhancedViewport } from "@/components/enhanced-viewport"
-import { CustomDeviceDialog } from "@/components/custom-device-dialog"
-import { DeviceSetsManager } from "@/components/device-sets-manager"
-import { ScreenshotManager } from "@/components/screenshot-manager"
+import { DeviceMenu } from "@/components/device-menu"
+import { ManageMenu } from "@/components/manage-menu"
+import { ExportMenu } from "@/components/export-menu"
+import { QuickStartMenu } from "@/components/quick-start-menu"
 import { ShareConfig } from "@/components/share-config"
-import { SyncControls } from "@/components/sync-controls"
-import { PerformancePanel } from "@/components/performance-panel"
-import { BatchOperations } from "@/components/batch-operations"
-import { RecentURLs } from "@/components/recent-urls"
-import { NetworkThrottling } from "@/components/network-throttling"
-import { PresetBreakpoints } from "@/components/preset-breakpoints"
-import { PDFExport } from "@/components/pdf-export"
-import { ComparisonMode } from "@/components/comparison-mode"
+import { OnboardingCard } from "@/components/onboarding-card"
 import { EmptyDevicesState, EmptyURLState } from "@/components/empty-states"
 import { ErrorBoundary } from "@/components/error-boundary"
 import { useRecentURLs, useViewportDimensions, useOnlineStatus } from "@/lib/hooks"
@@ -44,10 +38,7 @@ export default function Home() {
   const [activeUrl, setActiveUrl] = useState("")
   const [viewports, setViewports] = useState<Viewport[]>([])
   const [devices, setDevices] = useState<Device[]>(devicesData as Device[])
-  const [scrollSync, setScrollSync] = useState(false)
-  const [clickSync, setClickSync] = useState(false)
-  const [throttleMode, setThrottleMode] = useState<"none" | "3g" | "4g" | "5g">("none")
-  const [comparisonMode, setComparisonMode] = useState(false)
+  const [showOnboarding, setShowOnboarding] = useState(true)
 
   const { recentURLs, addURL, clearURLs } = useRecentURLs()
   const dimensions = useViewportDimensions()
@@ -148,7 +139,7 @@ export default function Home() {
   }
 
   const handleBatchSelectDevices = (deviceIds: string[]) => {
-    const newViewports: Viewport[] = deviceIds
+    const newViewports = deviceIds
       .filter(id => !viewports.some(v => v.device.id === id))
       .map(id => {
         const device = devices.find((d) => d.id === id)
@@ -156,12 +147,28 @@ export default function Home() {
         return {
           id: `${id}-${Date.now()}-${Math.random()}`,
           device,
-          orientation: "portrait" as const,
+          orientation: "portrait" as "portrait" | "landscape",
         }
       })
       .filter((v): v is Viewport => v !== null)
 
     setViewports([...viewports, ...newViewports])
+  }
+
+  const handleQuickStartDevices = (deviceIds: string[]) => {
+    const newViewports = deviceIds
+      .map(id => {
+        const device = devices.find((d) => d.id === id)
+        if (!device) return null
+        return {
+          id: `${id}-${Date.now()}-${Math.random()}`,
+          device,
+          orientation: "portrait" as "portrait" | "landscape",
+        }
+      })
+      .filter((v): v is Viewport => v !== null)
+
+    setViewports(newViewports)
   }
 
   const handleAddPresetDevices = (presetDevices: Device[]) => {
@@ -195,6 +202,7 @@ export default function Home() {
 
   const handleClearAllViewports = () => {
     setViewports([])
+    toast.success("All viewports cleared")
   }
 
   const handleToggleOrientation = (viewportId: string) => {
@@ -214,10 +222,12 @@ export default function Home() {
     setViewports(
       viewports.map((v) => ({ ...v, orientation }))
     )
+    toast.success(`All viewports set to ${orientation}`)
   }
 
   const handleRefreshAll = () => {
     setViewports([...viewports])
+    toast.success("All viewports refreshed")
   }
 
   const handleLoadDeviceSet = (newViewports: Viewport[]) => {
@@ -236,8 +246,22 @@ export default function Home() {
     handleLoadUrl(recentUrl)
   }
 
+  const handleTryExample = () => {
+    const exampleUrl = "https://example.com"
+    setUrl(exampleUrl)
+    handleLoadUrl(exampleUrl)
+
+    // Add some popular devices
+    const popularDeviceIds = ["iphone-15-pro-max", "ipad-pro-13", "desktop-1920"]
+    handleQuickStartDevices(popularDeviceIds)
+  }
+
+  const handleDismissOnboarding = () => {
+    setShowOnboarding(false)
+  }
+
   // Calculate available space for viewports
-  const availableWidth = dimensions.width < 1024 ? dimensions.width - 40 : (dimensions.width - 80) / (comparisonMode ? 2 : 3)
+  const availableWidth = dimensions.width < 1024 ? dimensions.width - 40 : (dimensions.width - 80) / 3
   const availableHeight = dimensions.height - 200
 
   return (
@@ -246,23 +270,20 @@ export default function Home() {
 
       <main className="flex-1 container mx-auto px-4 py-6 space-y-6">
         <ErrorBoundary>
+          {/* Onboarding Card */}
+          {showOnboarding && (
+            <OnboardingCard
+              onTryExample={handleTryExample}
+              onDismiss={handleDismissOnboarding}
+            />
+          )}
+
           {/* URL Input Section */}
-          <div className="flex gap-2">
-            <div className="flex-1">
-              <URLInput
-                url={url}
-                onUrlChange={setUrl}
-                onLoadUrl={handleLoadUrl}
-              />
-            </div>
-            {recentURLs.length > 0 && (
-              <RecentURLs
-                recentURLs={recentURLs}
-                onSelectURL={handleSelectRecentURL}
-                onClearHistory={clearURLs}
-              />
-            )}
-          </div>
+          <URLInput
+            url={url}
+            onUrlChange={setUrl}
+            onLoadUrl={handleLoadUrl}
+          />
 
           {/* Device Selection */}
           <EnhancedDeviceSelector
@@ -271,57 +292,42 @@ export default function Home() {
             selectedDeviceIds={viewports.map(v => v.device.id)}
           />
 
-          {/* Action Bar */}
+          {/* Action Bar - Organized into Grouped Menus */}
           <div className="flex flex-wrap items-center gap-2">
-            <CustomDeviceDialog onAddDevice={handleAddCustomDevice} />
-
-            <PresetBreakpoints onAddPreset={handleAddPresetDevices} />
-
-            <BatchOperations
+            <DeviceMenu
               devices={devices}
-              onSelectDevices={handleBatchSelectDevices}
+              onAddCustomDevice={handleAddCustomDevice}
+              onAddPresetDevices={handleAddPresetDevices}
+              onBatchSelectDevices={handleBatchSelectDevices}
               onClearAll={handleClearAllViewports}
               onApplyOrientationToAll={handleApplyOrientationToAll}
               onRefreshAll={handleRefreshAll}
               hasViewports={viewports.length > 0}
             />
 
+            <QuickStartMenu
+              devices={devices}
+              onSelectDevices={handleQuickStartDevices}
+            />
+
             <div className="h-6 w-px bg-border" />
 
-            <DeviceSetsManager
+            <ManageMenu
               currentViewports={viewports}
               onLoadDeviceSet={handleLoadDeviceSet}
+              recentURLs={recentURLs}
+              onSelectURL={handleSelectRecentURL}
+              onClearHistory={clearURLs}
+              hasViewports={viewports.length > 0}
             />
 
-            <ScreenshotManager />
-
-            <PDFExport viewports={viewports} url={activeUrl} />
+            {/* Progressive Disclosure: Only show export when there are viewports */}
+            {viewports.length > 0 && (
+              <ExportMenu viewports={viewports} url={activeUrl} />
+            )}
 
             <ShareConfig url={activeUrl} viewports={viewports} />
-
-            <NetworkThrottling
-              throttleMode={throttleMode}
-              onThrottleModeChange={setThrottleMode}
-            />
-
-            <PerformancePanel url={activeUrl} />
           </div>
-
-          {/* Comparison & Sync Controls */}
-          {viewports.length > 0 && activeUrl && (
-            <div className="space-y-4">
-              <ComparisonMode
-                enabled={comparisonMode}
-                onToggle={setComparisonMode}
-                viewportCount={viewports.length}
-              />
-
-              <SyncControls
-                onScrollSyncChange={setScrollSync}
-                onClickSyncChange={setClickSync}
-              />
-            </div>
-          )}
 
           {/* Viewports Grid or Empty States */}
           {viewports.length === 0 ? (
@@ -329,13 +335,7 @@ export default function Home() {
           ) : !activeUrl ? (
             <EmptyURLState onExampleURL={handleExampleURL} />
           ) : (
-            <div
-              className={`grid gap-6 ${
-                comparisonMode && viewports.length >= 2
-                  ? "grid-cols-1 lg:grid-cols-2"
-                  : "grid-cols-1 lg:grid-cols-2 xl:grid-cols-3"
-              }`}
-            >
+            <div className="grid gap-6 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
               {viewports.map((viewport) => (
                 <EnhancedViewport
                   key={viewport.id}
@@ -345,9 +345,6 @@ export default function Home() {
                   onToggleOrientation={handleToggleOrientation}
                   availableWidth={availableWidth}
                   availableHeight={availableHeight}
-                  scrollSync={comparisonMode || scrollSync}
-                  clickSync={clickSync}
-                  throttleMode={throttleMode}
                 />
               ))}
             </div>

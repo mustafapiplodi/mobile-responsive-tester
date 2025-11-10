@@ -25,12 +25,28 @@ interface Screenshot {
 
 interface ScreenshotManagerProps {
   onCaptureAll?: () => void
+  dialogOpen?: boolean
+  onDialogChange?: (open: boolean) => void
 }
 
-export function ScreenshotManager({ onCaptureAll }: ScreenshotManagerProps) {
+export function ScreenshotManager({
+  onCaptureAll,
+  dialogOpen: externalDialogOpen,
+  onDialogChange,
+}: ScreenshotManagerProps) {
   const [screenshots, setScreenshots] = useState<Screenshot[]>([])
-  const [dialogOpen, setDialogOpen] = useState(false)
+  const [internalDialogOpen, setInternalDialogOpen] = useState(false)
   const [capturing, setCapturing] = useState(false)
+
+  const dialogOpen = externalDialogOpen ?? internalDialogOpen
+
+  const setDialogOpen = (open: boolean) => {
+    if (onDialogChange) {
+      onDialogChange(open)
+    } else {
+      setInternalDialogOpen(open)
+    }
+  }
 
   const captureAllViewports = async () => {
     setCapturing(true)
@@ -98,30 +114,8 @@ export function ScreenshotManager({ onCaptureAll }: ScreenshotManagerProps) {
   }
 
   return (
-    <>
-      <Button
-        variant="outline"
-        size="sm"
-        onClick={captureAllViewports}
-        disabled={capturing}
-      >
-        <Camera className="w-4 h-4 mr-2" />
-        {capturing ? 'Capturing...' : 'Screenshot All'}
-      </Button>
-
-      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogTrigger asChild>
-          <Button variant="outline" size="sm">
-            <ImageIcon className="w-4 h-4 mr-2" />
-            Screenshots
-            {screenshots.length > 0 && (
-              <Badge variant="secondary" className="ml-2">
-                {screenshots.length}
-              </Badge>
-            )}
-          </Button>
-        </DialogTrigger>
-        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+    <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+      <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Screenshots</DialogTitle>
             <DialogDescription>
@@ -190,6 +184,5 @@ export function ScreenshotManager({ onCaptureAll }: ScreenshotManagerProps) {
           )}
         </DialogContent>
       </Dialog>
-    </>
   )
 }

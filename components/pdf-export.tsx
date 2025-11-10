@@ -21,13 +21,30 @@ import type { Viewport } from "@/app/page"
 interface PDFExportProps {
   viewports: Viewport[]
   url: string
+  dialogOpen?: boolean
+  onDialogChange?: (open: boolean) => void
 }
 
-export function PDFExport({ viewports, url }: PDFExportProps) {
+export function PDFExport({
+  viewports,
+  url,
+  dialogOpen: externalDialogOpen,
+  onDialogChange,
+}: PDFExportProps) {
   const [isExporting, setIsExporting] = useState(false)
   const [reportName, setReportName] = useState("responsive-test-report")
   const [includeNotes, setIncludeNotes] = useState(true)
-  const [open, setOpen] = useState(false)
+  const [internalDialogOpen, setInternalDialogOpen] = useState(false)
+
+  const dialogOpen = externalDialogOpen ?? internalDialogOpen
+
+  const setOpen = (open: boolean) => {
+    if (onDialogChange) {
+      onDialogChange(open)
+    } else {
+      setInternalDialogOpen(open)
+    }
+  }
 
   const handleExport = async () => {
     if (viewports.length === 0) {
@@ -124,13 +141,7 @@ export function PDFExport({ viewports, url }: PDFExportProps) {
   }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button variant="outline" size="sm" disabled={viewports.length === 0}>
-          <FileText className="w-4 h-4 mr-2" />
-          Export PDF
-        </Button>
-      </DialogTrigger>
+    <Dialog open={dialogOpen} onOpenChange={setOpen}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Export PDF Report</DialogTitle>

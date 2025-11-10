@@ -89,18 +89,6 @@ export function HelpDialog() {
             </h3>
             <div className="space-y-2 text-sm">
               <div className="flex items-center justify-between">
-                <span>Save device set</span>
-                <Badge variant="outline">Ctrl + S</Badge>
-              </div>
-              <div className="flex items-center justify-between">
-                <span>Load device set</span>
-                <Badge variant="outline">Ctrl + O</Badge>
-              </div>
-              <div className="flex items-center justify-between">
-                <span>Take screenshots</span>
-                <Badge variant="outline">Ctrl + P</Badge>
-              </div>
-              <div className="flex items-center justify-between">
                 <span>Toggle dark mode</span>
                 <Badge variant="outline">Ctrl + D</Badge>
               </div>

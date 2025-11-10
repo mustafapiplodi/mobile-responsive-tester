@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { Plus } from "lucide-react"
 import {
   Dialog,
   DialogContent,
@@ -9,7 +8,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -19,10 +17,14 @@ import type { Device } from "@/app/page"
 
 interface CustomDeviceDialogProps {
   onAddDevice: (device: Device) => void
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
 }
 
-export function CustomDeviceDialog({ onAddDevice }: CustomDeviceDialogProps) {
-  const [open, setOpen] = useState(false)
+export function CustomDeviceDialog({ onAddDevice, open: controlledOpen, onOpenChange }: CustomDeviceDialogProps) {
+  const [internalOpen, setInternalOpen] = useState(false)
+  const open = controlledOpen !== undefined ? controlledOpen : internalOpen
+  const setOpen = onOpenChange || setInternalOpen
   const [name, setName] = useState("")
   const [width, setWidth] = useState("")
   const [height, setHeight] = useState("")
@@ -86,12 +88,6 @@ export function CustomDeviceDialog({ onAddDevice }: CustomDeviceDialogProps) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button variant="outline">
-          <Plus className="w-4 h-4 mr-2" />
-          Custom Device
-        </Button>
-      </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <form onSubmit={handleSubmit}>
           <DialogHeader>

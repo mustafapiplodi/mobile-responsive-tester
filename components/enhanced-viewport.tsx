@@ -15,10 +15,7 @@ interface EnhancedViewportProps {
   onToggleOrientation: (viewportId: string) => void
   availableWidth: number
   availableHeight: number
-  scrollSync?: boolean
-  clickSync?: boolean
   onIframeLoad?: (viewportId: string) => void
-  throttleMode?: "none" | "3g" | "4g" | "5g"
 }
 
 export function EnhancedViewport({
@@ -28,10 +25,7 @@ export function EnhancedViewport({
   onToggleOrientation,
   availableWidth,
   availableHeight,
-  scrollSync,
-  clickSync,
   onIframeLoad,
-  throttleMode = "none",
 }: EnhancedViewportProps) {
   const { device, orientation } = viewport
   const iframeRef = useRef<HTMLIFrameElement>(null)
@@ -146,15 +140,6 @@ export function EnhancedViewport({
     }
   }
 
-  const getThrottleDelay = () => {
-    switch (throttleMode) {
-      case "3g": return 3000
-      case "4g": return 1000
-      case "5g": return 200
-      default: return 0
-    }
-  }
-
   return (
     <Card
       className={cn(
@@ -186,11 +171,6 @@ export function EnhancedViewport({
               {zoom !== 100 && (
                 <Badge variant="default" className="text-xs">
                   {zoom}%
-                </Badge>
-              )}
-              {throttleMode !== "none" && (
-                <Badge variant="destructive" className="text-xs uppercase">
-                  {throttleMode}
                 </Badge>
               )}
             </div>
@@ -267,11 +247,6 @@ export function EnhancedViewport({
               <div className="text-center space-y-2">
                 <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
                 <p className="text-sm text-muted-foreground">Loading...</p>
-                {getThrottleDelay() > 0 && (
-                  <p className="text-xs text-muted-foreground">
-                    Simulating {throttleMode?.toUpperCase()} speed
-                  </p>
-                )}
               </div>
             </div>
           )}

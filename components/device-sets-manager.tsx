@@ -27,17 +27,44 @@ interface DeviceSet {
 interface DeviceSetsManagerProps {
   currentViewports: Viewport[]
   onLoadDeviceSet: (viewports: Viewport[]) => void
+  saveDialogOpen?: boolean
+  loadDialogOpen?: boolean
+  onSaveDialogChange?: (open: boolean) => void
+  onLoadDialogChange?: (open: boolean) => void
 }
 
 export function DeviceSetsManager({
   currentViewports,
   onLoadDeviceSet,
+  saveDialogOpen: externalSaveDialogOpen,
+  loadDialogOpen: externalLoadDialogOpen,
+  onSaveDialogChange,
+  onLoadDialogChange,
 }: DeviceSetsManagerProps) {
   const [savedSets, setSavedSets] = useState<DeviceSet[]>([])
-  const [saveDialogOpen, setSaveDialogOpen] = useState(false)
-  const [loadDialogOpen, setLoadDialogOpen] = useState(false)
+  const [internalSaveDialogOpen, setInternalSaveDialogOpen] = useState(false)
+  const [internalLoadDialogOpen, setInternalLoadDialogOpen] = useState(false)
   const [setName, setSetName] = useState("")
   const [error, setError] = useState("")
+
+  const saveDialogOpen = externalSaveDialogOpen ?? internalSaveDialogOpen
+  const loadDialogOpen = externalLoadDialogOpen ?? internalLoadDialogOpen
+
+  const setSaveDialogOpen = (open: boolean) => {
+    if (onSaveDialogChange) {
+      onSaveDialogChange(open)
+    } else {
+      setInternalSaveDialogOpen(open)
+    }
+  }
+
+  const setLoadDialogOpen = (open: boolean) => {
+    if (onLoadDialogChange) {
+      onLoadDialogChange(open)
+    } else {
+      setInternalLoadDialogOpen(open)
+    }
+  }
 
   useEffect(() => {
     loadSavedSets()
@@ -101,15 +128,9 @@ export function DeviceSetsManager({
   }
 
   return (
-    <div className="flex gap-2">
+    <>
       {/* Save Dialog */}
       <Dialog open={saveDialogOpen} onOpenChange={setSaveDialogOpen}>
-        <DialogTrigger asChild>
-          <Button variant="outline" size="sm">
-            <Save className="w-4 h-4 mr-2" />
-            Save Set
-          </Button>
-        </DialogTrigger>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Save Device Set</DialogTitle>
@@ -156,12 +177,6 @@ export function DeviceSetsManager({
 
       {/* Load Dialog */}
       <Dialog open={loadDialogOpen} onOpenChange={setLoadDialogOpen}>
-        <DialogTrigger asChild>
-          <Button variant="outline" size="sm">
-            <FolderOpen className="w-4 h-4 mr-2" />
-            Load Set
-          </Button>
-        </DialogTrigger>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Load Device Set</DialogTitle>
@@ -213,6 +228,6 @@ export function DeviceSetsManager({
           </div>
         </DialogContent>
       </Dialog>
-    </div>
+    </>
   )
 }
